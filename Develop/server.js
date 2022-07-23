@@ -3,7 +3,7 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const dbJson = require("./db/db.json");
-let currentId = dbJson.length;
+let addId = dbJson.length;
 //listening port and applying a variable to use express
 const port = process.env.PORT || 3001;
 const app = express();
@@ -22,23 +22,45 @@ app.get('/notes', function (req, res) {
     res.sendFile(path.join(__dirname, 'public/notes.html'));
 });
 
+// app.get('/api/notes/:id', function (req, res) {
+//     let parsedNotes = JSON.parse(fs.readFileSync('./db/db.json'));
+//     res.json(parsedNotes[Number(req.params.id)]);
+// });
+
 app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
 
 //post routes
-
+//uses a variable to take the length of the array adds 1 then self increments to assign an ID
 app.post('/api/notes', function (req, res) {
     let nNote = req.body;
-    nNote.id = currentId +1;
-    currentId++;
+    nNote.id = addId +1;
+    addId++;
 
     dbJson.push(nNote);
 
     fs.writeFileSync('./db/db.json', JSON.stringify(dbJson));
     res.json(dbJson);
 });
+
+app.delete('api/notes/:id', function (req, res) {
+    let currentID = req.params.id;
+    
+    dbJson.splice(currentID -1 , 1);
+
+    
+    fs.writeFileSync('./db/db.json', JSON.stringify(dbJson), function() {
+
+        res.json(dbJson);
+    });
+    
+
+
+});
+
+
 
 //listening port
 app.listen(port, function () {
