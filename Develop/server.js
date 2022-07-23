@@ -43,20 +43,20 @@ app.post('/api/notes', function (req, res) {
 
 
 //attempt at a delete route, console log returns 404 due to unfound note
-app.delete('api/notes/:id', function (req, res) {
-    let currentID = req.params.id;
+// app.delete('api/notes/:id', function (req, res) {
+//     let currentID = req.params.id;
     
-    dbJson.splice(currentID -1 , 1);
+//     dbJson.splice(currentID -1 , 1);
 
     
-    fs.writeFileSync('./db/db.json', JSON.stringify(dbJson), function() {
+//     fs.writeFileSync('./db/db.json', JSON.stringify(dbJson), function() {
 
-        res.json(dbJson);
-    });
+//         res.json(dbJson);
+//     });
     
 
 
-});
+// });
 
 
 
