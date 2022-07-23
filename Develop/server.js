@@ -31,7 +31,7 @@ app.get('*', function (req, res) {
 
 app.post('/api/notes', function (req, res) {
     let nNote = req.body;
-    nNote['id'] = currentId +1;
+    nNote.id = currentId +1;
     currentId++;
 
     dbJson.push(nNote);
