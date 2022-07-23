@@ -26,3 +26,19 @@ app.get('*', function (req, res) {
 });
 
 
+//post routes
+
+app.post('/api/notes', function (req, res) {
+    let nNote = req.body;
+    nNote.id = currentId +1; currentId++;
+
+    dbJson.push(nNote);
+
+    fs.writeFileSync('./db/db.json', JSON.stringify(dbJson));
+    res.json(dbJson);
+});
+
+//listening port
+app.listen(port, function () {
+    console.log(`listening on port ${port}`);
+  })
