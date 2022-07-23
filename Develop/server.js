@@ -22,10 +22,6 @@ app.get('/notes', function (req, res) {
     res.sendFile(path.join(__dirname, 'public/notes.html'));
 });
 
-// app.get('/api/notes/:id', function (req, res) {
-//     let parsedNotes = JSON.parse(fs.readFileSync('./db/db.json'));
-//     res.json(parsedNotes[Number(req.params.id)]);
-// });
 
 app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, 'public/index.html'));
@@ -45,6 +41,8 @@ app.post('/api/notes', function (req, res) {
     res.json(dbJson);
 });
 
+
+//attempt at a delete route, console log returns 404 due to unfound note
 app.delete('api/notes/:id', function (req, res) {
     let currentID = req.params.id;
     
